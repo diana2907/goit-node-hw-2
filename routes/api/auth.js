@@ -7,8 +7,16 @@ const { validateBody, authenticate, upload } = require("../../middlewares");
 const { schemas } = require("../../models/user");
 
 const router = express.Router();
-
+// register
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
+
+router.get("/verify/:verificationCode", ctrl.verifyEmail);
+
+router.post(
+  "/verify",
+  validateBody(schemas.emailSchema),
+  ctrl.resendVerifyEmail
+);
 
 router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 
